@@ -1,4 +1,6 @@
 package com.project.canary_sound_sphere_app.viewModel
 
-class ViewModel {
+import androidx.lifecycle.ViewModel
+
+class ViewModel : ViewModel() {
 }
