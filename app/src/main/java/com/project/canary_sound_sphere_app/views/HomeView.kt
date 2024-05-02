@@ -1,10 +1,15 @@
 package com.project.canary_sound_sphere_app.views
 
 import android.annotation.SuppressLint
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -19,6 +24,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
+import coil.compose.rememberAsyncImagePainter
+import coil.compose.rememberImagePainter
+import com.project.canary_sound_sphere_app.R
 import com.project.canary_sound_sphere_app.util.Constants
 import com.project.canary_sound_sphere_app.viewModel.ViewModel
 
@@ -29,34 +37,34 @@ fun HomeView(viewModel: ViewModel, navController: NavController) {
     var isAuthorsSelected by remember { mutableStateOf(false) }
 
     Scaffold(
-            topBar = {
-                MainTopBar(
-                    title = "Canary Sound Sphere",
-                    isEventsSelected = isEventsSelected,
-                    isAuthorsSelected = isAuthorsSelected,
-                    onEventsClicked = {
-                        isEventsSelected = true
-                        isAuthorsSelected = false
-                    },
-                    onAuthorsClicked = {
-                        isEventsSelected = false
-                        isAuthorsSelected = true
-                    }
-                )
-            }
-        )
-    {
+
+
+        topBar = {
+            MainTopBar(
+                title = "Canary Sound Sphere",
+                isEventsSelected = isEventsSelected,
+                isAuthorsSelected = isAuthorsSelected,
+                onEventsClicked = {
+                    isEventsSelected = true
+                    isAuthorsSelected = false
+                },
+                onAuthorsClicked = {
+                    isEventsSelected = false
+                    isAuthorsSelected = true
+                }
+            )
+        }
+    ) {
         Column {
-            Text(text = "Contenido de Eventos", color = Color.Black)
             if (isEventsSelected) {
-                Text(text = "Contenido de Eventos", color = Color.Black)
+                EventList(navController) // Mostrar lista de eventos
             } else if (isAuthorsSelected) {
-                Text(text = "Contenido de Autores", color = Color.Black)
+                AuthorList() // Mostrar lista de autores
             }
         }
     }
-
 }
+
 /*
 @Composable
 fun EventList() {
@@ -69,25 +77,70 @@ fun EventList() {
  */
 
 @Composable
-fun EventItem() {
-    Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .wrapContentHeight()
-            .padding(10.dp)
+fun detailButton(text: String, onClick: (String) -> Unit) {
+    Button(
+        onClick = { onClick(text) },
+        modifier = Modifier.padding(8.dp)
     ) {
-        Spacer(modifier = Modifier.height(16.dp))
-        Row(modifier = Modifier.align(Alignment.CenterHorizontally)){
-            Text(
-                text = "pokemon.name",
-            )
-            Spacer(modifier = Modifier.width(8.dp))
-            Text(
-                text = "pokemon.formatId",
-            )
+        Text(text = text)
+    }
+}
+
+
+
+@Composable
+fun EventList(navController: NavController) {
+    LazyColumn(
+        modifier = Modifier.padding(top = 80.dp)
+    ) {
+        items(10) { index ->
+            EventItem(eventName = "Evento $index", navController = navController)
+
         }
     }
 }
+
+
+@Composable
+fun AuthorList() {
+    LazyColumn(
+        modifier = Modifier.padding(top = 80.dp)
+    ) {
+        items(10) { index ->
+            detailButton("Autor $index", {})
+        }
+    }
+}
+
+@Composable
+fun EventItem(eventName: String, navController: NavController) {
+    Text(
+        text = eventName,
+        color = Color.Black,
+        fontSize = 16.sp,
+        fontWeight = FontWeight.Normal,
+    )
+    Image(
+        painter = rememberAsyncImagePainter(R.drawable.testimage), // Reemplaza R.drawable.my_image por la ID de tu imagen
+        contentDescription = "Imagen del evento",
+        modifier = Modifier.size(250.dp) // Modifica el tamaño según sea necesario
+    )
+    detailButton(eventName) { eventName ->
+        navController.navigate("EventDetailScreen")
+    }
+}
+
+@Composable
+fun AuthorItem(authorName: String) {
+    Text(
+        text = authorName,
+        color = Color.Black,
+        fontSize = 16.sp,
+        fontWeight = FontWeight.Normal,
+        modifier = Modifier.padding(8.dp)
+    )
+}
+
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
