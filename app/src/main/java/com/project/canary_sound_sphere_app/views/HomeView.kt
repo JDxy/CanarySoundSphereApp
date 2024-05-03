@@ -2,8 +2,12 @@ package com.project.canary_sound_sphere_app.views
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
@@ -18,6 +22,8 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -93,8 +99,8 @@ fun EventList(navController: NavController) {
     LazyColumn(
         modifier = Modifier.padding(top = 80.dp)
     ) {
-        items(10) { index ->
-            EventItem(eventName = "Evento $index", navController = navController)
+        items(11) { index ->
+            eventItem(eventName = "Evento $index", "3 de Abril", "15:00 - 23:00", "10000",navController = navController)
 
         }
     }
@@ -106,36 +112,72 @@ fun AuthorList() {
     LazyColumn(
         modifier = Modifier.padding(top = 80.dp)
     ) {
-        items(10) { index ->
+        items(11) { index ->
             detailButton("Autor $index", {})
         }
     }
 }
 
 @Composable
-fun EventItem(eventName: String, navController: NavController) {
-    Text(
-        text = eventName,
-        color = Color.Black,
-        fontSize = 16.sp,
-        fontWeight = FontWeight.Normal,
-    )
-    Image(
-        painter = rememberAsyncImagePainter(R.drawable.testimage), // Reemplaza R.drawable.my_image por la ID de tu imagen
-        contentDescription = "Imagen del evento",
-        modifier = Modifier.size(250.dp) // Modifica el tamaño según sea necesario
-    )
-    detailButton(eventName) { eventName ->
-        navController.navigate("EventDetailScreen")
+fun eventItem(eventName: String, days: String, hours: String, capacity: String, navController: NavController) {
+    Row(
+        modifier = Modifier
+            .padding(16.dp)
+            .border(2.dp, Color.Black)
+            .width(400.dp)
+            .height(150.dp)
+            .background(Color.Black.copy(alpha = 0.2f)) // Opacidad del fondo
+            .clickable {
+                navController.navigate("EventDetailScreen")
+            },
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Image(
+            painter = rememberAsyncImagePainter(R.drawable.testimage),
+            contentDescription = "Imagen del evento",
+            modifier = Modifier
+                .padding(10.dp)
+                .size(200.dp)
+                .clip(shape = RoundedCornerShape(8.dp)) // Opcional: para bordes redondeados
+        )
+        Column(
+            modifier = Modifier
+                .width(200.dp),
+            horizontalAlignment = Alignment.Start
+
+            ) {
+            titleText(eventName)
+            detailsText("Días: $days")
+            detailsText("Horario: $hours")
+            detailsText("Aforo: $capacity")
+        }
     }
 }
 
 @Composable
-fun AuthorItem(authorName: String) {
+fun titleText(text: String) {
+    Text(
+        text = text,
+        color = Color.Magenta,
+        fontSize = 20.sp,
+        fontWeight = FontWeight.Normal,
+    )
+}
+@Composable
+fun detailsText(text: String){
+    Text(
+        text = text,
+        color = Color.Black,
+        fontSize = 13.sp,
+        fontWeight = FontWeight.Normal,
+    )
+}
+@Composable
+fun authorItem(authorName: String) {
     Text(
         text = authorName,
         color = Color.Black,
-        fontSize = 16.sp,
+        fontSize = 13.sp,
         fontWeight = FontWeight.Normal,
         modifier = Modifier.padding(8.dp)
     )
