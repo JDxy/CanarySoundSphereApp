@@ -33,6 +33,8 @@ import coil.compose.AsyncImage
 import coil.compose.rememberAsyncImagePainter
 import coil.compose.rememberImagePainter
 import com.project.canary_sound_sphere_app.R
+import com.project.canary_sound_sphere_app.components.detailsText
+import com.project.canary_sound_sphere_app.components.titleText
 import com.project.canary_sound_sphere_app.util.Constants
 import com.project.canary_sound_sphere_app.viewModel.ViewModel
 
@@ -154,24 +156,7 @@ fun eventItem(eventName: String, days: String, hours: String, capacity: String, 
     }
 }
 
-@Composable
-fun titleText(text: String) {
-    Text(
-        text = text,
-        color = Color.Magenta,
-        fontSize = 20.sp,
-        fontWeight = FontWeight.Normal,
-    )
-}
-@Composable
-fun detailsText(text: String){
-    Text(
-        text = text,
-        color = Color.Black,
-        fontSize = 13.sp,
-        fontWeight = FontWeight.Normal,
-    )
-}
+
 @Composable
 fun authorItem(authorName: String) {
     Text(
