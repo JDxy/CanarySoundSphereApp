@@ -67,7 +67,7 @@ fun HomeView(viewModel: ViewModel, navController: NavController) {
             if (isEventsSelected) {
                 EventList(navController) // Mostrar lista de eventos
             } else if (isAuthorsSelected) {
-                AuthorList() // Mostrar lista de autores
+                AuthorList(navController) // Mostrar lista de autores
             }
         }
     }
@@ -110,12 +110,12 @@ fun EventList(navController: NavController) {
 
 
 @Composable
-fun AuthorList() {
+fun AuthorList(navController: NavController) {
     LazyColumn(
         modifier = Modifier.padding(top = 80.dp)
     ) {
         items(11) { index ->
-            detailButton("Autor $index", {})
+            authorItem("Autor $index",navController = navController)
         }
     }
 }
@@ -158,14 +158,37 @@ fun eventItem(eventName: String, days: String, hours: String, capacity: String, 
 
 
 @Composable
-fun authorItem(authorName: String) {
-    Text(
-        text = authorName,
-        color = Color.Black,
-        fontSize = 13.sp,
-        fontWeight = FontWeight.Normal,
-        modifier = Modifier.padding(8.dp)
-    )
+fun authorItem(authorName: String, navController: NavController) {
+    Row(
+        modifier = Modifier
+            .padding(16.dp)
+            .border(2.dp, Color.Black)
+            .width(400.dp)
+            .height(150.dp)
+            .background(Color.Black.copy(alpha = 0.2f)) // Opacidad del fondo
+            .clickable {
+                navController.navigate("AuthorDetailScreen")
+
+            },
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Image(
+            painter = rememberAsyncImagePainter(R.drawable.testimage),
+            contentDescription = "Imagen del evento",
+            modifier = Modifier
+                .padding(10.dp)
+                .size(200.dp)
+                .clip(shape = RoundedCornerShape(8.dp)) // Opcional: para bordes redondeados
+        )
+        Column(
+            modifier = Modifier
+                .width(200.dp),
+            horizontalAlignment = Alignment.CenterHorizontally
+
+        ) {
+            titleText(authorName)
+        }
+    }
 }
 
 
@@ -223,20 +246,6 @@ fun MainTopBar(
         },
         colors = TopAppBarDefaults.mediumTopAppBarColors(
             containerColor = Color(Constants.CUSTOM_BLACK)
-        ),
-        navigationIcon = {
-            /*
-            if (showBackButton) {
-                IconButton(onClick = { onClickBackButton() }) {
-                    Icon(
-                        imageVector = Icons.Default.ArrowBack,
-                        contentDescription = null,
-                        tint = Color.White
-                    )
-                }
-            }
-
-             */
-        }
+        )
     )
 }
