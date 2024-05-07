@@ -36,7 +36,8 @@ fun AuthorDetailView(navController: NavController) {
             detailTopBar("", navController, showBackButton = true)
         }
     ) {
-        contentAuthorDetails( "Title",
+        contentAuthorDetails( "https://github.com/JDxy/Canary-Sphere-Sound-App-Images/blob/main/1200px-estopa_20080613_007-1108137301.jpg?raw=true",
+            "Title",
             "Año fundacion: 1992",
             "Genero: Rumba",
             "\"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\""
@@ -45,7 +46,7 @@ fun AuthorDetailView(navController: NavController) {
 }
 
 @Composable
-fun contentAuthorDetails(title: String, foundationYear: String, gender: String, bodyText: String) {
+fun contentAuthorDetails(artistImageUrl: String, title: String, foundationYear: String, gender: String, bodyText: String) {
     val list = listOf(foundationYear, gender )
 
     Column(
@@ -56,7 +57,7 @@ fun contentAuthorDetails(title: String, foundationYear: String, gender: String, 
             modifier = Modifier.padding(top = 70.dp)
         ) {
             Image(
-                painter = rememberAsyncImagePainter(R.drawable.testimage),
+                painter = rememberAsyncImagePainter(artistImageUrl),
                 contentDescription = "Imagen del evento",
                 modifier = Modifier
                     .width(400.dp)
@@ -93,8 +94,8 @@ fun contentAuthorDetails(title: String, foundationYear: String, gender: String, 
                 },
                 modifier = Modifier
                     .padding(bottom = 8.dp)
-                    .aspectRatio(2f) // Hace que el botón tenga una relación de aspecto cuadrada
-                    .align(Alignment.CenterVertically) // Alinea el texto al centro verticalmente
+                    .aspectRatio(2f)
+                    .align(Alignment.CenterVertically)
             ) {
                 Text(text = "Listas de reproduccion")
             }

@@ -1,30 +1,29 @@
 package com.project.canary_sound_sphere_app.views
 
 import android.annotation.SuppressLint
+import android.graphics.drawable.Drawable
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
-import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import coil.compose.rememberAsyncImagePainter
+import coil.compose.rememberImagePainter
 import com.project.canary_sound_sphere_app.R
 import com.project.canary_sound_sphere_app.components.detailTopBar
+import java.io.InputStream
+import java.net.URL
+
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
@@ -34,14 +33,16 @@ fun EventDetailView(navController: NavController) {
             detailTopBar("", navController, showBackButton = true)
         }
     ) {
-        contentEventsDetails()
+        contentEventsDetails("https://github.com/JDxy/Canary-Sphere-Sound-App-Images/blob/main/15502681_1575153519168344_856285858_o-1-1287306393.jpg?raw=true",
+            "https://github.com/JDxy/Canary-Sphere-Sound-App-Images/blob/main/15502681_1575153519168344_856285858_o-1-1287306393.jpg?raw=true",
+            "Calle falsa",
+            listOf("Día 1", "Día 2", "Día 3")
+        )
     }
 }
 
 @Composable
-fun contentEventsDetails() {
-    val days = listOf("Día 1", "Día 2", "Día 3")
-
+fun contentEventsDetails(logoImageUrl: String, eventImageUrl: String, direction: String, days: List<String>) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier.fillMaxSize()
@@ -58,7 +59,7 @@ fun contentEventsDetails() {
             )
 
             Text(
-                text = "Calle falsa",
+                text = direction,
                 fontSize = 18.sp,
             )
         }
@@ -67,9 +68,10 @@ fun contentEventsDetails() {
             horizontalArrangement = Arrangement.Center,
             verticalAlignment = Alignment.CenterVertically
         ) {
+            // Aquí puedes agregar más imágenes si es necesario
             Image(
-                painter = rememberAsyncImagePainter(R.drawable.testimage),
-                contentDescription = "Imagen del evento",
+                painter = rememberAsyncImagePainter(logoImageUrl),
+                contentDescription = "Imagen de logo",
                 modifier = Modifier
                     .padding(start = 3.dp)
                     .border(1.dp, Color.Black)
@@ -77,7 +79,7 @@ fun contentEventsDetails() {
 
             )
             Image(
-                painter = rememberAsyncImagePainter(R.drawable.testimage),
+                painter = rememberAsyncImagePainter(eventImageUrl),
                 contentDescription = "Imagen del evento",
                 modifier = Modifier
                     .padding(start = 3.dp)
