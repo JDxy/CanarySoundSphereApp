@@ -14,8 +14,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.project.canary_sound_sphere_app.ui.theme.menuColor
-import com.project.canary_sound_sphere_app.ui.theme.titleColor
-import com.project.canary_sound_sphere_app.util.Constants
 
 @Composable
 fun titleText(text: String) {

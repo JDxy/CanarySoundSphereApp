@@ -2,9 +2,11 @@ package com.project.canary_sound_sphere_app.util
 
 class Constants {
     companion object{
-        const val BASE_URL = "https://pokeapi.co/api/v2/"
-        const val ENDPOINT="pokemon?limit=1025"
-        const val ENDPOINT2="pokemon/{id}"
+        const val BASE_URL = "localhost:9006/"
+        const val ENDPOINT_GET_ALL_EVENTS="events"
+        const val ENDPOINT_EVENT_BY_ID="events/{id}"
+        const val ENDPOINT_GET_ALL_AUTHORS="authors"
+        const val ENDPOINT_GET_AUTHOR_BY_ID="authors/{id}"
         const val CUSTOM_BLACK=0xFF2B2626
     }
 }
