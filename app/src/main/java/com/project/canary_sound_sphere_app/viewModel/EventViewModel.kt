@@ -15,6 +15,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
+
 // ViewModel para manejar la lógica de la pantalla principal de la Pokédex
 @HiltViewModel
 class EventViewModel @Inject constructor(private val repo: EventApiRepository): ViewModel() {
@@ -33,20 +34,20 @@ class EventViewModel @Inject constructor(private val repo: EventApiRepository): 
         viewModelScope.launch {
             // Ejecutar en el hilo IO para realizar la solicitud a la API
             withContext(Dispatchers.IO){
-                // Obtener la lista de Pokémon del repositorio
+                // Obtener la lista de eventos del repositorio
                 val result=repo.getAllEvents()
-                // Actualizar el flujo de Pokémon con los resultados obtenidos
+                // Actualizar el flujo de con los resultados obtenidos
                 _event.value=result ?: emptyList()
             }
         }
     }
-    // Función para obtener los detalles de un Pokémon por su ID
+    // Función para obtener los detalles de un evento según su id
     fun getEventById(id: String){
         viewModelScope.launch{
             withContext(Dispatchers.IO){
-                // Obtener los detalles del Pokémon del repositorio
+                // Obtener los detalles del evento del repositorio
                 val result=repo.getEventDetails(id)
-                // Actualizar el estado de la pantalla con los detalles del Pokémon obtenidos
+                // Actualizar el estado de la pantalla con los detalles del evento obtenidos
                 state=state.copy(
                     name = result?.name ?: "",
                     image = result?.image ?: "",

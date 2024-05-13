@@ -7,6 +7,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
 class CanarySoundSphereService {
+
     // Instancia de Retrofit para realizar solicitudes a la API
     private val retrofit = ApiModule.providesRetrofit()
 
@@ -16,7 +17,7 @@ class CanarySoundSphereService {
             // Realiza la solicitud a la API para obtener la lista de Eventos
             val response = retrofit.create(CanarySoundSphereClient::class.java).getListEvents()
             // Devuelve la lista de Eventos si la respuesta no es nula, de lo contrario devuelve una lista vacía
-            response.body()?.events ?: emptyList()
+            response.body() ?: emptyList()
         }
     }
 
@@ -29,5 +30,4 @@ class CanarySoundSphereService {
             response.body()
         }
     }
-
 }

@@ -6,6 +6,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -27,6 +28,8 @@ import coil.compose.rememberAsyncImagePainter
 import com.project.canary_sound_sphere_app.R
 import com.project.canary_sound_sphere_app.components.detailsText
 import com.project.canary_sound_sphere_app.components.titleText
+import com.project.canary_sound_sphere_app.model.EventItem
+import com.project.canary_sound_sphere_app.model.EventModel
 import com.project.canary_sound_sphere_app.ui.theme.backgroundColor
 import com.project.canary_sound_sphere_app.ui.theme.itemsBackgroundColor
 import com.project.canary_sound_sphere_app.ui.theme.menuColor
@@ -36,8 +39,11 @@ import com.project.canary_sound_sphere_app.viewModel.EventViewModel
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun HomeView(viewModel: EventViewModel, navController: NavController) {
+
+    val events by viewModel.event.collectAsState()
     var isEventsSelected by remember { mutableStateOf(true) }
     var isAuthorsSelected by remember { mutableStateOf(false) }
+
     Scaffold(
         topBar = {
             MainTopBar(
@@ -58,7 +64,7 @@ fun HomeView(viewModel: EventViewModel, navController: NavController) {
     ) {
         Column {
             if (isEventsSelected) {
-                EventList(navController) // Mostrar lista de eventos
+                EventList(navController, events) // Mostrar lista de eventos
             } else if (isAuthorsSelected) {
                 AuthorList(navController) // Mostrar lista de autores
             }
@@ -67,17 +73,21 @@ fun HomeView(viewModel: EventViewModel, navController: NavController) {
 }
 
 @Composable
-fun EventList(navController: NavController) {
+fun EventList(navController: NavController, events: List<EventItem>) {
     LazyColumn(
         modifier = Modifier.padding(top = 80.dp)
     ) {
-        items(11) { index ->
-            eventItem(eventName = "Evento $index", "3 de Abril", "15:00 - 23:00", "10000",navController = navController)
-
+        items(events) { event ->
+            eventItem(
+                eventName = event.name,
+                days = event.date,
+                hours = event.time,
+                capacity = event.capacity.toString(),
+                navController = navController
+            )
         }
     }
 }
-
 
 @Composable
 fun AuthorList(navController: NavController) {

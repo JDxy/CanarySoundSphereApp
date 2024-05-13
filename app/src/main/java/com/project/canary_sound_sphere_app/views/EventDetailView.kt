@@ -21,13 +21,16 @@ import coil.compose.rememberAsyncImagePainter
 import coil.compose.rememberImagePainter
 import com.project.canary_sound_sphere_app.R
 import com.project.canary_sound_sphere_app.components.detailTopBar
+import com.project.canary_sound_sphere_app.state.EventState
+import com.project.canary_sound_sphere_app.viewModel.EventViewModel
 import java.io.InputStream
 import java.net.URL
 
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun EventDetailView(navController: NavController) {
+fun EventDetailView(viewModel: EventViewModel, navController: NavController) {
+    val state=viewModel.state
     Scaffold(
         topBar = {
             detailTopBar("", navController, showBackButton = true)
@@ -35,7 +38,7 @@ fun EventDetailView(navController: NavController) {
     ) {
         contentEventsDetails("https://github.com/JDxy/Canary-Sphere-Sound-App-Images/blob/main/15502681_1575153519168344_856285858_o-1-1287306393.jpg?raw=true",
             "https://github.com/JDxy/Canary-Sphere-Sound-App-Images/blob/main/15502681_1575153519168344_856285858_o-1-1287306393.jpg?raw=true",
-            "Calle falsa",
+            state.name,
             listOf("Día 1", "Día 2", "Día 3")
         )
     }

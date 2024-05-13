@@ -20,7 +20,7 @@ fun NavManager(viewModel: EventViewModel) {
             HomeView(viewModel, navController)
         }
         composable("EventDetailScreen"){
-            EventDetailView(navController)
+            EventDetailView(viewModel, navController)
         }
         composable("AuthorDetailScreen"){
             AuthorDetailView(navController)

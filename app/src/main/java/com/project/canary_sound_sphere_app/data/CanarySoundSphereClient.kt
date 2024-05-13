@@ -1,5 +1,6 @@
 package com.project.canary_sound_sphere_app.data
 
+import com.project.canary_sound_sphere_app.model.EventModel
 import com.project.canary_sound_sphere_app.model.EventModelDetails
 import com.project.canary_sound_sphere_app.model.ResultApi
 import com.project.canary_sound_sphere_app.util.Constants.Companion.ENDPOINT_EVENT_BY_ID
@@ -13,8 +14,7 @@ import retrofit2.http.Path
  */
 interface CanarySoundSphereClient {
     @GET(ENDPOINT_GET_ALL_EVENTS)
-    suspend fun getListEvents(): Response<ResultApi>
-
+    suspend fun getListEvents(): Response<List<EventModel>>
     @GET(ENDPOINT_EVENT_BY_ID)
     suspend fun getDetailsEvent(@Path("id") id: String): Response<EventModelDetails>
     /*
