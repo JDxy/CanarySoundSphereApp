@@ -31,12 +31,11 @@ import com.project.canary_sound_sphere_app.ui.theme.backgroundColor
 import com.project.canary_sound_sphere_app.ui.theme.itemsBackgroundColor
 import com.project.canary_sound_sphere_app.ui.theme.menuColor
 import com.project.canary_sound_sphere_app.ui.theme.titleColor
-import com.project.canary_sound_sphere_app.util.Constants
-import com.project.canary_sound_sphere_app.viewModel.ViewModel
+import com.project.canary_sound_sphere_app.viewModel.EventViewModel
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun HomeView(viewModel: ViewModel, navController: NavController) {
+fun HomeView(viewModel: EventViewModel, navController: NavController) {
     var isEventsSelected by remember { mutableStateOf(true) }
     var isAuthorsSelected by remember { mutableStateOf(false) }
     Scaffold(

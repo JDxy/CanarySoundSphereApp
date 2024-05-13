@@ -1,0 +1,61 @@
+package com.project.canary_sound_sphere_app.viewModel
+
+import androidx.lifecycle.ViewModel
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
+import androidx.lifecycle.viewModelScope
+import com.project.canary_sound_sphere_app.model.EventItem
+import com.project.canary_sound_sphere_app.repository.EventApiRepository
+import com.project.canary_sound_sphere_app.state.EventState
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import javax.inject.Inject
+// ViewModel para manejar la lógica de la pantalla principal de la Pokédex
+@HiltViewModel
+class EventViewModel @Inject constructor(private val repo: EventApiRepository): ViewModel() {
+    // Flujo mutable para almacenar la lista de Pokémon
+    private val _event= MutableStateFlow<List<EventItem>> (emptyList())
+    val event= _event.asStateFlow() // Flujo inmutable para exponer la lista de Pokémon al UI
+    // Estado actual de la pantalla
+    var state by mutableStateOf(EventState())
+        private set
+    // Inicialización del ViewModel, se llama automáticamente al crear una instancia del ViewModel
+    init{
+        fetchEvent()// Obtener la lista de Pokémon al inicializar el ViewModel
+    }
+    // Función para obtener la lista de Pokémon
+    private fun fetchEvent(){
+        viewModelScope.launch {
+            // Ejecutar en el hilo IO para realizar la solicitud a la API
+            withContext(Dispatchers.IO){
+                // Obtener la lista de Pokémon del repositorio
+                val result=repo.getAllEvents()
+                // Actualizar el flujo de Pokémon con los resultados obtenidos
+                _event.value=result ?: emptyList()
+            }
+        }
+    }
+    // Función para obtener los detalles de un Pokémon por su ID
+    fun getEventById(id: String){
+        viewModelScope.launch{
+            withContext(Dispatchers.IO){
+                // Obtener los detalles del Pokémon del repositorio
+                val result=repo.getEventDetails(id)
+                // Actualizar el estado de la pantalla con los detalles del Pokémon obtenidos
+                state=state.copy(
+                    name = result?.name ?: "",
+                    image = result?.image ?: "",
+                    description = result?.description ?: "",
+                    direction = result?.direction ?: "",
+                    marker = result?.marker ?: "",
+                    ticketStore = result?.ticketStore ?: ""
+                )
+            }
+        }
+    }
+}

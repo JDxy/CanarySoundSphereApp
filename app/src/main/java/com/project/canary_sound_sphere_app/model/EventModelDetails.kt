@@ -8,6 +8,7 @@ import com.google.gson.annotations.SerializedName
  */
 data class EventModelDetails(
     @SerializedName("_id") val id: String,
+    @SerializedName("name") val name: String,
     @SerializedName("image") val image: String,
     @SerializedName("description") val description: String,
     @SerializedName("direction") val direction: String,
