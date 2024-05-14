@@ -11,13 +11,14 @@ import androidx.compose.ui.Modifier
 import androidx.lifecycle.ViewModel
 import com.project.canary_sound_sphere_app.navigation.NavManager
 import com.project.canary_sound_sphere_app.ui.theme.CanarySoundSphereAppTheme
+import com.project.canary_sound_sphere_app.viewModel.AuthorViewModel
 import com.project.canary_sound_sphere_app.viewModel.EventViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
-    private val viewModel: EventViewModel by viewModels()
-
+    private val eventViewModel: EventViewModel by viewModels()
+    private val authorViewModel: AuthorViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -27,7 +28,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    NavManager(viewModel)
+                    NavManager(eventViewModel, authorViewModel)
                 }
             }
         }

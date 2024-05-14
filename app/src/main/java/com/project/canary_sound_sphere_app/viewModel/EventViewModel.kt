@@ -21,7 +21,7 @@ import javax.inject.Inject
 class EventViewModel @Inject constructor(private val repo: EventApiRepository): ViewModel() {
     // Flujo mutable para almacenar la lista de Pokémon
     private val _event= MutableStateFlow<List<EventItem>> (emptyList())
-    val event= _event.asStateFlow() // Flujo inmutable para exponer la lista de Pokémon al UI
+    val events= _event.asStateFlow() // Flujo inmutable para exponer la lista de Pokémon al UI
     // Estado actual de la pantalla
     var state by mutableStateOf(EventState())
         private set

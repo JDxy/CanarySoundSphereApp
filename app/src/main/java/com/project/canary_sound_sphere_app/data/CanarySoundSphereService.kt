@@ -1,6 +1,8 @@
 package com.project.canary_sound_sphere_app.data
 
 import com.project.canary_sound_sphere_app.di.ApiModule
+import com.project.canary_sound_sphere_app.model.AuthorModel
+import com.project.canary_sound_sphere_app.model.AuthorModelDetails
 import com.project.canary_sound_sphere_app.model.EventModel
 import com.project.canary_sound_sphere_app.model.EventModelDetails
 import kotlinx.coroutines.Dispatchers
@@ -27,6 +29,25 @@ class CanarySoundSphereService {
             // Realiza la solicitud a la API para obtener los detalles de un Evento por su ID
             val response = retrofit.create(CanarySoundSphereClient::class.java).getDetailsEvent(id)
             // Devuelve los detalles del evento si la respuesta no es nula
+            response.body()
+        }
+    }
+    // Método suspendido para obtener la lista de Eventos
+    suspend fun getAuthors(): List<AuthorModel> {
+        return withContext(Dispatchers.IO) {
+            // Realiza la solicitud a la API para obtener la lista de autores
+            val response = retrofit.create(CanarySoundSphereClient::class.java).getListAuthors()
+            // Devuelve la lista de autores si la respuesta no es nula, de lo contrario devuelve una lista vacía
+            response.body() ?: emptyList()
+        }
+    }
+
+    // Método suspendido para obtener los detalles de un autor específico por su ID
+    suspend fun getDetailsAuthor(id: String): AuthorModelDetails?{
+        return withContext(Dispatchers.IO) {
+            // Realiza la solicitud a la API para obtener los detalles de un autor por su ID
+            val response = retrofit.create(CanarySoundSphereClient::class.java).getDetailsAuthor(id)
+            // Devuelve los detalles del autor si la respuesta no es nula
             response.body()
         }
     }

@@ -25,22 +25,24 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import coil.compose.rememberAsyncImagePainter
-import com.project.canary_sound_sphere_app.R
 import com.project.canary_sound_sphere_app.components.detailsText
 import com.project.canary_sound_sphere_app.components.titleText
+import com.project.canary_sound_sphere_app.model.AuthorItem
 import com.project.canary_sound_sphere_app.model.EventItem
-import com.project.canary_sound_sphere_app.model.EventModel
 import com.project.canary_sound_sphere_app.ui.theme.backgroundColor
 import com.project.canary_sound_sphere_app.ui.theme.itemsBackgroundColor
 import com.project.canary_sound_sphere_app.ui.theme.menuColor
 import com.project.canary_sound_sphere_app.ui.theme.titleColor
+import com.project.canary_sound_sphere_app.viewModel.AuthorViewModel
 import com.project.canary_sound_sphere_app.viewModel.EventViewModel
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun HomeView(viewModel: EventViewModel, navController: NavController) {
+fun HomeView(eventViewModel: EventViewModel, authorViewModel: AuthorViewModel, navController: NavController) {
 
-    val events by viewModel.event.collectAsState()
+    val events by eventViewModel.events.collectAsState()
+    val authors by authorViewModel.authors.collectAsState()
+
     var isEventsSelected by remember { mutableStateOf(true) }
     var isAuthorsSelected by remember { mutableStateOf(false) }
 
@@ -66,7 +68,7 @@ fun HomeView(viewModel: EventViewModel, navController: NavController) {
             if (isEventsSelected) {
                 EventList(navController, events) // Mostrar lista de eventos
             } else if (isAuthorsSelected) {
-                AuthorList(navController) // Mostrar lista de autores
+                AuthorList(navController, authors) // Mostrar lista de autores
             }
         }
     }
@@ -90,15 +92,16 @@ fun EventList(navController: NavController, events: List<EventItem>) {
 }
 
 @Composable
-fun AuthorList(navController: NavController) {
+fun AuthorList(navController: NavController, authors: List<AuthorItem>) {
     LazyColumn(
         modifier = Modifier.padding(top = 80.dp)
     ) {
-        items(11) { index ->
-            authorItem("Autor $index",navController = navController)
+        items(authors) { author ->
+            authorItem(author.name, author.image ,navController = navController)
         }
     }
 }
+
 
 @Composable
 fun eventItem(eventName: String, days: String, hours: String, capacity: String, navController: NavController) {
@@ -137,7 +140,7 @@ fun eventItem(eventName: String, days: String, hours: String, capacity: String, 
 
 
 @Composable
-fun authorItem(authorName: String, navController: NavController) {
+fun authorItem(authorName: String, image: String, navController: NavController) {
     Row(
         modifier = Modifier
             .padding(16.dp)
@@ -151,7 +154,7 @@ fun authorItem(authorName: String, navController: NavController) {
         verticalAlignment = Alignment.CenterVertically
     ) {
         Image(
-            painter = rememberAsyncImagePainter("https://github.com/JDxy/Canary-Sphere-Sound-App-Images/blob/main/15502681_1575153519168344_856285858_o-1-1287306393.jpg?raw=tru"),
+            painter = rememberAsyncImagePainter(image),
             contentDescription = "Imagen del evento",
             modifier = Modifier
                 .padding(10.dp)
