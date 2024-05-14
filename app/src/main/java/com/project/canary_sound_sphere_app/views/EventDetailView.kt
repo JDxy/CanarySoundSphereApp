@@ -1,7 +1,6 @@
 package com.project.canary_sound_sphere_app.views
 
 import android.annotation.SuppressLint
-import android.graphics.drawable.Drawable
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
@@ -13,19 +12,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import coil.compose.rememberAsyncImagePainter
-import coil.compose.rememberImagePainter
 import com.project.canary_sound_sphere_app.R
-import com.project.canary_sound_sphere_app.components.detailTopBar
-import com.project.canary_sound_sphere_app.state.EventState
+import com.project.canary_sound_sphere_app.components.DetailTopBar
 import com.project.canary_sound_sphere_app.viewModel.EventViewModel
-import java.io.InputStream
-import java.net.URL
-
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
@@ -33,10 +26,10 @@ fun EventDetailView(viewModel: EventViewModel, navController: NavController) {
     val state=viewModel.state
     Scaffold(
         topBar = {
-            detailTopBar("", navController, showBackButton = true)
+            DetailTopBar("", navController, showBackButton = true)
         }
     ) {
-        contentEventsDetails("https://github.com/JDxy/Canary-Sphere-Sound-App-Images/blob/main/15502681_1575153519168344_856285858_o-1-1287306393.jpg?raw=true",
+        ContentEventsDetails("https://github.com/JDxy/Canary-Sphere-Sound-App-Images/blob/main/15502681_1575153519168344_856285858_o-1-1287306393.jpg?raw=true",
             "https://github.com/JDxy/Canary-Sphere-Sound-App-Images/blob/main/15502681_1575153519168344_856285858_o-1-1287306393.jpg?raw=true",
             state.name,
             listOf("Día 1", "Día 2", "Día 3")
@@ -45,7 +38,7 @@ fun EventDetailView(viewModel: EventViewModel, navController: NavController) {
 }
 
 @Composable
-fun contentEventsDetails(logoImageUrl: String, eventImageUrl: String, direction: String, days: List<String>) {
+fun ContentEventsDetails(logoImageUrl: String, eventImageUrl: String, direction: String, days: List<String>) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier.fillMaxSize()

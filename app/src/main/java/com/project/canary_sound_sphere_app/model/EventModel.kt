@@ -6,9 +6,6 @@ import com.google.gson.annotations.SerializedName
  * Esta clase se usa para mapear los datos de la respuesta de la API
  * a objetos Kotlin para facilitar su manipulación y uso en la aplicación.
  */
-data class ResultApiEvents(
-    @SerializedName("") val events: List<EventModel>
-)
 data class EventModel(
     @SerializedName("_id") val id: String,
     @SerializedName("logo") val logo: String,

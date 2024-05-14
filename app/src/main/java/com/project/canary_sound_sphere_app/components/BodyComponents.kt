@@ -1,5 +1,7 @@
 package com.project.canary_sound_sphere_app.components
 
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -14,29 +16,35 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.project.canary_sound_sphere_app.ui.theme.menuColor
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.style.TextDecoration
+import androidx.compose.ui.unit.dp
+import com.project.canary_sound_sphere_app.ui.theme.colorCardText
 
 @Composable
-fun titleText(text: String) {
+fun TitleText(text: String, textDecoration: Boolean) {
     Text(
         text = text,
-        color = Color.White,
-        fontSize = 30.sp,
+        color = colorCardText,
+        fontSize = 16.sp,
         fontWeight = FontWeight.Bold,
+        textDecoration = if(textDecoration) TextDecoration.Underline else TextDecoration.None,
+        softWrap = false,
     )
 }
 @Composable
-fun detailsText(text: String){
+fun DetailsText(text: String){
     Text(
         text = text,
-        color = Color.White,
-        fontSize = 14.8.sp,
+        color = colorCardText,
+        fontSize = 14.sp,
         fontWeight = FontWeight.Normal,
     )
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun detailTopBar(
+fun DetailTopBar(
     title: String,
     navController: NavController,
     showBackButton: Boolean = false
@@ -58,5 +66,37 @@ fun detailTopBar(
                 }
             }
         }
+    )
+}
+
+/**
+ * Composable que representa un botón de texto personalizado. *
+ * @param modifier
+ * @param text
+ * @param textColor
+ * @param fontWeight
+ * @param fontSize
+ * @param isSelected
+ * @param onClick
+ */
+@Composable
+fun CustomTextButton(
+    modifier: Modifier = Modifier,
+    text: String,
+    textColor: Color,
+    fontWeight: FontWeight = FontWeight.Bold,
+    fontSize: Float = 24f,
+    isSelected: Boolean,
+    onClick: () -> Unit
+    ) {
+    Text(
+        modifier = modifier
+            .padding(8.dp)
+            .clickable { onClick() },
+        text = text,
+        color = textColor,
+        textDecoration = if (isSelected) TextDecoration.Underline else TextDecoration.None,
+        fontWeight = fontWeight,
+        fontSize = fontSize.sp
     )
 }

@@ -13,7 +13,9 @@ class CanarySoundSphereService {
     // Instancia de Retrofit para realizar solicitudes a la API
     private val retrofit = ApiModule.providesRetrofit()
 
-    // Método suspendido para obtener la lista de Eventos
+    /**
+     * Método getEvent se utiliza para obtener la lista de Events
+     */
     suspend fun getEvents(): List<EventModel> {
         return withContext(Dispatchers.IO) {
             // Realiza la solicitud a la API para obtener la lista de Eventos
@@ -23,31 +25,34 @@ class CanarySoundSphereService {
         }
     }
 
-    // Método suspendido para obtener los detalles de un Evento específico por su ID
+    /**
+     * Método getDetailEvent se utiliza para obtener un Event concreto
+     */
     suspend fun getDetailsEvent(id: String): EventModelDetails?{
         return withContext(Dispatchers.IO) {
-            // Realiza la solicitud a la API para obtener los detalles de un Evento por su ID
+            // Realiza la solicitud a la API para obtener el evento en funcion de su id
             val response = retrofit.create(CanarySoundSphereClient::class.java).getDetailsEvent(id)
             // Devuelve los detalles del evento si la respuesta no es nula
             response.body()
         }
     }
-    // Método suspendido para obtener la lista de Eventos
+
+    /**
+     * Método getAuthor se utiliza para obtener la lista de Authors
+     */
     suspend fun getAuthors(): List<AuthorModel> {
         return withContext(Dispatchers.IO) {
-            // Realiza la solicitud a la API para obtener la lista de autores
             val response = retrofit.create(CanarySoundSphereClient::class.java).getListAuthors()
-            // Devuelve la lista de autores si la respuesta no es nula, de lo contrario devuelve una lista vacía
             response.body() ?: emptyList()
         }
     }
 
-    // Método suspendido para obtener los detalles de un autor específico por su ID
+    /**
+     * Método getDetailAuthor se utiliza para obtener un Author concreto
+     */
     suspend fun getDetailsAuthor(id: String): AuthorModelDetails?{
         return withContext(Dispatchers.IO) {
-            // Realiza la solicitud a la API para obtener los detalles de un autor por su ID
             val response = retrofit.create(CanarySoundSphereClient::class.java).getDetailsAuthor(id)
-            // Devuelve los detalles del autor si la respuesta no es nula
             response.body()
         }
     }

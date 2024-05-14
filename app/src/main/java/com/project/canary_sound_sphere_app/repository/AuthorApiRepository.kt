@@ -12,7 +12,7 @@ import javax.inject.Inject
  */
 class AuthorApiRepository @Inject constructor(private val authorApi: CanarySoundSphereClient){
 
-    // Instancia de EventApiService para interactuar con la API
+    // Instancia de AuthorApiService para interactuar con la API
     private val api = CanarySoundSphereService()
 
     suspend fun getAllAuthors(): List<AuthorItem> {

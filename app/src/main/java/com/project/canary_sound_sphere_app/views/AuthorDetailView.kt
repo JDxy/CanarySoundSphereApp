@@ -2,8 +2,6 @@ package com.project.canary_sound_sphere_app.views
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.border
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.aspectRatio
@@ -19,21 +17,19 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import coil.compose.rememberAsyncImagePainter
-import com.project.canary_sound_sphere_app.R
-import com.project.canary_sound_sphere_app.components.detailTopBar
+import com.project.canary_sound_sphere_app.components.DetailTopBar
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun AuthorDetailView(navController: NavController) {
     Scaffold(
         topBar = {
-            detailTopBar("", navController, showBackButton = true)
+            DetailTopBar("", navController, showBackButton = true)
         }
     ) {
         contentAuthorDetails( "https://github.com/JDxy/Canary-Sphere-Sound-App-Images/blob/main/1200px-estopa_20080613_007-1108137301.jpg?raw=true",
