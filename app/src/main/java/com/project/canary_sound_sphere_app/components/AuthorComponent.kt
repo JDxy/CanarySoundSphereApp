@@ -25,7 +25,6 @@ import coil.compose.AsyncImage
 import com.project.canary_sound_sphere_app.model.AuthorItem
 import com.project.canary_sound_sphere_app.ui.theme.colorCardText
 import com.project.canary_sound_sphere_app.ui.theme.itemsAuthorBackgroundColor
-import com.project.canary_sound_sphere_app.ui.theme.itemsEventBackgroundColor
 
 @Composable
 fun AuthorList(navController: NavController, authors: List<AuthorItem>) {
@@ -33,14 +32,15 @@ fun AuthorList(navController: NavController, authors: List<AuthorItem>) {
         modifier = Modifier
             .padding(top = 80.dp)
             .fillMaxWidth(),
-
         ) {
         items(authors) { author ->
             AuthorItem(
                 author.id,
                 author.name,
                 author.image,
-                navController = navController
+                onClick = { authorId ->
+                    navController.navigate("AuthorDetailScreen/$authorId")
+                }
             )
         }
     }
@@ -51,7 +51,7 @@ fun AuthorItem(
     id: String,
     name: String,
     image: String,
-    navController: NavController
+    onClick: (String) -> Unit
 ) {
     Row(
         modifier = Modifier
@@ -64,7 +64,7 @@ fun AuthorItem(
                 BorderStroke(1.dp, colorCardText),
                 shape = RoundedCornerShape(8.dp)
             )
-            .clickable { navController.navigate("EventDetailScreen") },
+            .clickable { onClick(id) },
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
@@ -104,4 +104,3 @@ fun AuthorDetails(name: String) {
         TitleText(name, false)
     }
 }
-

@@ -16,38 +16,55 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
-// ViewModel para manejar la lógica de la pantalla principal de la Pokédex
+/**
+ * ViewModel para manejar los datos y la lógica de la pantalla de eventos.
+ * @param repo Repositorio para acceder a los datos de los eventos desde la API.
+ */
 @HiltViewModel
 class EventViewModel @Inject constructor(private val repo: EventApiRepository): ViewModel() {
-    // Flujo mutable para almacenar la lista de Pokémon
+
+    // Flujo mutable para almacenar la lista de eventos
     private val _event= MutableStateFlow<List<EventItem>> (emptyList())
-    val events= _event.asStateFlow() // Flujo inmutable para exponer la lista de Pokémon al UI
+
+    // Flujo inmutable para exponer la lista de eventos al UI
+    val events= _event.asStateFlow()
+
     // Estado actual de la pantalla
     var state by mutableStateOf(EventState())
         private set
-    // Inicialización del ViewModel, se llama automáticamente al crear una instancia del ViewModel
+
+    /**
+     * Inicializa el ViewModel y obtiene la lista de eventos al inicializarlo.
+     */
     init{
-        fetchEvent()// Obtener la lista de Pokémon al inicializar el ViewModel
+        fetchEvent()
     }
-    // Función para obtener la lista de Pokémon
+
+    /**
+     * Función para obtener la lista de eventos desde el repositorio y actualizar el flujo de eventos.
+     */
     private fun fetchEvent(){
         viewModelScope.launch {
             // Ejecutar en el hilo IO para realizar la solicitud a la API
             withContext(Dispatchers.IO){
                 // Obtener la lista de eventos del repositorio
                 val result=repo.getAllEvents()
-                // Actualizar el flujo de con los resultados obtenidos
+                // Actualizar el flujo de eventos con los resultados obtenidos
                 _event.value=result ?: emptyList()
             }
         }
     }
-    // Función para obtener los detalles de un evento según su id
+
+    /**
+     * Función para obtener los detalles de un evento por su ID y actualizar el estado de la pantalla.
+     * @param id ID del evento del cual se quieren obtener los detalles.
+     */
     fun getEventById(id: String){
         viewModelScope.launch{
             withContext(Dispatchers.IO){
                 // Obtener los detalles del evento del repositorio
                 val result=repo.getEventDetails(id)
-                // Actualizar el estado de la pantalla con los detalles del evento obtenidos
+                // Actualizar el estado de la pantalla con los detalles del evento obtenido
                 state=state.copy(
                     name = result?.name ?: "",
                     image = result?.image ?: "",

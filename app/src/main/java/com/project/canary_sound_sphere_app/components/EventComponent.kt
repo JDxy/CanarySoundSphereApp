@@ -35,17 +35,18 @@ fun EventList(navController: NavController, events: List<EventItem>) {
             .fillMaxWidth(),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
-
     ) {
         items(events) { event ->
             EventItem(
-                id=event.id,
-                logo=event.logo,
-                name=event.name,
-                date=event.date,
-                time=event.time,
-                capacity=event.capacity,
-                navController = navController
+                id = event.id,
+                logo = event.logo,
+                name = event.name,
+                date = event.date,
+                time = event.time,
+                capacity = event.capacity,
+                onClick = { eventId ->
+                    navController.navigate("EventDetailScreen/$eventId")
+                }
             )
         }
     }
@@ -59,7 +60,7 @@ fun EventItem(
     date: String,
     time: String,
     capacity: Int,
-    navController: NavController
+    onClick: (String) -> Unit
 ) {
     Row(
         modifier = Modifier
@@ -72,14 +73,15 @@ fun EventItem(
                 BorderStroke(1.dp, colorCardText),
                 shape = RoundedCornerShape(8.dp)
             )
-            .clickable { navController.navigate("EventDetailScreen") },
+            .clickable { onClick(id) },
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
-        ) {
+    ) {
         EventLogo(logo)
         EventDetails(name, date, time, capacity)
     }
 }
+
 
 @Composable
 fun EventLogo(logo: String) {

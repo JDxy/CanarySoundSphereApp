@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
-import androidx.lifecycle.ViewModel
 import com.project.canary_sound_sphere_app.navigation.NavManager
 import com.project.canary_sound_sphere_app.ui.theme.CanarySoundSphereAppTheme
 import com.project.canary_sound_sphere_app.viewModel.AuthorViewModel
@@ -23,7 +22,6 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             CanarySoundSphereAppTheme {
-                // A surface container using the 'background' color from the theme
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background

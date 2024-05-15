@@ -15,7 +15,6 @@ fun AuthorModel.toDomain(): AuthorItem {
 
 private fun replaceFirstChar(t: String): String {
     return t.replaceFirstChar {
-        // cada nombre con Mayuscula
         if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString()
     }
 }

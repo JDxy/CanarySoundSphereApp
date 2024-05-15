@@ -10,7 +10,10 @@ data class AuthorItemDetails(
     val music_list: String
 )
 
+/**
+ * AuthorModelDetails
+ * Retorna un nuevo objeto AuthorItemDetails con los datos formateados
+ */
 fun AuthorModelDetails.toDomain(): AuthorItemDetails {
-    // Retorna un nuevo objeto AuthorItemDetails con los datos formateados
     return AuthorItemDetails(id, name,  image, foundation_year, music_type, description, music_list)
 }

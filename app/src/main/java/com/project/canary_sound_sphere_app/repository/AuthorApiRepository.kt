@@ -1,6 +1,5 @@
 package com.project.canary_sound_sphere_app.repository
 
-import com.project.canary_sound_sphere_app.data.CanarySoundSphereClient
 import com.project.canary_sound_sphere_app.data.CanarySoundSphereService
 import com.project.canary_sound_sphere_app.model.AuthorItem
 import com.project.canary_sound_sphere_app.model.AuthorItemDetails
@@ -10,9 +9,9 @@ import javax.inject.Inject
 /**
  * Repositorio para manejar las operaciones relacionadas con la API
  */
-class AuthorApiRepository @Inject constructor(private val authorApi: CanarySoundSphereClient){
+class AuthorApiRepository @Inject constructor(){
 
-    // Instancia de AuthorApiService para interactuar con la API
+    // Instancia de CanarySoundSphereService para interactuar con la API
     private val api = CanarySoundSphereService()
 
     suspend fun getAllAuthors(): List<AuthorItem> {

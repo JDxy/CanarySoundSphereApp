@@ -47,33 +47,6 @@ fun DetailsText(text: String){
     )
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun DetailTopBar(
-    title: String,
-    navController: NavController,
-    showBackButton: Boolean = false
-
-) {
-    TopAppBar(
-        colors = TopAppBarDefaults.mediumTopAppBarColors(
-            containerColor = menuColor
-        ),
-        title = { Text(text = title, color = Color.White, fontWeight = FontWeight.ExtraBold) },
-        navigationIcon = {
-            if (showBackButton) {
-                IconButton(onClick = { navController.popBackStack() }) {
-                    Icon(
-                        imageVector = Icons.Default.ArrowBack,
-                        contentDescription = "Back",
-                        tint = Color.White
-                    )
-                }
-            }
-        }
-    )
-}
-
 /**
  * Composable que representa un botón de texto personalizado. *
  * @param modifier
@@ -103,5 +76,34 @@ fun CustomTextButton(
         textDecoration = if (isSelected) TextDecoration.Underline else TextDecoration.None,
         fontWeight = fontWeight,
         fontSize = fontSize.sp
+    )
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun DetailTopBar(
+    title: String,
+    navController: NavController,
+    showBackButton: Boolean = false
+
+) {
+    TopAppBar(
+        colors = TopAppBarDefaults.mediumTopAppBarColors(
+            containerColor = menuColor
+        ),
+        title = { Text(text = title, color = Color.White, fontWeight = FontWeight.ExtraBold) },
+
+        navigationIcon = {
+
+            if (showBackButton) {
+                IconButton(onClick = { navController.popBackStack() }) {
+                    Icon(
+                        imageVector = Icons.Default.ArrowBack,
+                        contentDescription = "Back",
+                        tint = Color.White
+                    )
+                }
+            }
+        }
     )
 }

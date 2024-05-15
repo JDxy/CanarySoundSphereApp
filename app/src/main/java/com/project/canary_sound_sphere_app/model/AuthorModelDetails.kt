@@ -3,8 +3,8 @@ package com.project.canary_sound_sphere_app.model
 import com.google.gson.annotations.SerializedName
 
 /**
- * Esta clase se usa para mapear los datos de la respuesta de la API
- * a objetos Kotlin para facilitar su manipulación y uso en la aplicación. *
+ * AuthorModelDetails
+ * Mapea los datos de la respuesta de la API a objetos Kotlin para facilitar su manipulación y uso en la aplicación.
  */
 data class AuthorModelDetails(
     @SerializedName("_id") val id: String,

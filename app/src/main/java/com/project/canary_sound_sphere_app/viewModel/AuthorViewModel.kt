@@ -16,22 +16,33 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
+/**
+ * ViewModel para manejar los datos y la lógica de la pantalla de autores.
+ * @param repo Repositorio para acceder a los datos de los autores desde la API.
+ */
 @HiltViewModel
 class AuthorViewModel @Inject constructor(private val repo: AuthorApiRepository): ViewModel() {
+
     // Flujo mutable para almacenar la lista de autores
     private val _authors = MutableStateFlow<List<AuthorItem>>(emptyList())
-    val authors = _authors.asStateFlow() // Flujo inmutable para exponer la lista de autores al UI
+
+    // Flujo inmutable para exponer la lista de autores al UI
+    val authors = _authors.asStateFlow()
 
     // Estado actual de la pantalla
     var state by mutableStateOf(AuthorState())
         private set
 
-    // Inicialización del ViewModel, se llama automáticamente al crear una instancia del ViewModel
+    /**
+     * Inicializa el ViewModel y obtiene la lista de autores al inicializarlo.
+     */
     init {
-        fetchAuthors() // Obtener la lista de autores al inicializar el ViewModel
+        fetchAuthors()
     }
 
-    // Función para obtener la lista de autores
+    /**
+     * Inicializa el ViewModel y obtiene la lista de autores al inicializarlo.
+     */
     private fun fetchAuthors() {
         viewModelScope.launch {
             // Ejecutar en el hilo IO para realizar la solicitud a la API
@@ -44,13 +55,16 @@ class AuthorViewModel @Inject constructor(private val repo: AuthorApiRepository)
         }
     }
 
-    // Función para obtener los detalles de un autor por su ID
+    /**
+     * Función para obtener los detalles de un autor por su ID y actualizar el estado de la pantalla.     *
+     * @param id ID del autor del cual se quieren obtener los detalles.
+     */
     fun getAuthorById(id: String) {
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
                 // Obtener los detalles del autor del repositorio
                 val result = repo.getAuthorDetails(id)
-                // Actualizar el estado de la pantalla con los detalles del autor obtenidos
+                // Actualizar el estado de la pantalla con los detalles del autor obtenido
                 state = state.copy(
                     name = result?.name ?: "",
                     image = result?.image ?: "",

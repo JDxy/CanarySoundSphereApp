@@ -10,7 +10,10 @@ data class EventItemDetails(
     val ticketStore: String
 )
 
+/**
+ * EventModelDetails
+ * Retorna un nuevo objeto EventItemDetails con los datos formateados
+ */
 fun EventModelDetails.toDomain(): EventItemDetails {
-    // Retorna un nuevo objeto EventItemDetails con los datos formateados
     return EventItemDetails(id, name,  image, description, direction, marker, ticketStore)
 }

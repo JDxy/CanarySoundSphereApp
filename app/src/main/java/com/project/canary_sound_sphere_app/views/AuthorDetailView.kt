@@ -1,101 +1,47 @@
-package com.project.canary_sound_sphere_app.views
-
 import android.annotation.SuppressLint
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.aspectRatio
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Button
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import coil.compose.rememberAsyncImagePainter
 import com.project.canary_sound_sphere_app.components.DetailTopBar
+import com.project.canary_sound_sphere_app.state.AuthorState
+import com.project.canary_sound_sphere_app.viewModel.AuthorViewModel
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun AuthorDetailView(navController: NavController) {
+fun AuthorDetailView(viewModel: AuthorViewModel, navController: NavController, id: String) {
+    LaunchedEffect(Unit) {
+        viewModel.getAuthorById(id)
+    }
     Scaffold(
         topBar = {
-            DetailTopBar("", navController, showBackButton = true)
+            DetailTopBar(viewModel.state.name, navController, showBackButton = true)
         }
     ) {
-        contentAuthorDetails( "https://github.com/JDxy/Canary-Sphere-Sound-App-Images/blob/main/1200px-estopa_20080613_007-1108137301.jpg?raw=true",
-            "Title",
-            "Año fundacion: 1992",
-            "Genero: Rumba",
-            "\"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\""
-        )
+        ContentAuthorDetails(viewModel.state)
     }
 }
 
 @Composable
-fun contentAuthorDetails(artistImageUrl: String, title: String, foundationYear: String, gender: String, bodyText: String) {
-    val list = listOf(foundationYear, gender )
-
-    Column(
-        horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = Modifier.fillMaxSize()
+fun ContentAuthorDetails(authorState: AuthorState) {
+    Column(modifier = Modifier
+        .fillMaxWidth()
+        .padding(top = 80.dp)
     ) {
-        Column(
-            modifier = Modifier.padding(top = 70.dp)
-        ) {
-            Image(
-                painter = rememberAsyncImagePainter(artistImageUrl),
-                contentDescription = "Imagen del evento",
-                modifier = Modifier
-                    .width(400.dp)
-                    .clip(shape = RoundedCornerShape(8.dp))
-            )
+        Text(text = "Name: ${authorState.name}")
 
-            Text(
-                text = title,
-                fontSize = 30.sp,
-                fontWeight = FontWeight.Bold
-            )
-            list.forEach { day ->
-                Text(
-                    text = day,
-                    fontSize = 18.sp,
-                    modifier = Modifier.padding(vertical = 4.dp)
-                )
-            }
-        }
-        Text(
-            text = bodyText,
-            fontSize = 18.sp,
-            modifier = Modifier
-                .padding(10.dp)
-        )
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(start = 280.dp, top = 10.dp)
-        ) {
+        Text(text = "Foundation Year: ${authorState.foundation_year}")
 
-            Button(
-                onClick = {
-                },
-                modifier = Modifier
-                    .padding(bottom = 8.dp)
-                    .aspectRatio(2f)
-                    .align(Alignment.CenterVertically)
-            ) {
-                Text(text = "Listas de reproduccion")
-            }
-        }
+        Text(text = "Music Type: ${authorState.music_type}")
+
+        Text(text = "Description: ${authorState.description}")
+
+        Text(text = "Music List: ${authorState.music_list}")
     }
 }
-

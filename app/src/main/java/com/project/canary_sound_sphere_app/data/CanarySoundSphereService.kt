@@ -14,25 +14,25 @@ class CanarySoundSphereService {
     private val retrofit = ApiModule.providesRetrofit()
 
     /**
-     * Método getEvent se utiliza para obtener la lista de Events
+     * Método getEvent
+     * Devuelve la lista de Eventos si la respuesta no es nula, de lo contrario devuelve una lista vacía
      */
     suspend fun getEvents(): List<EventModel> {
         return withContext(Dispatchers.IO) {
             // Realiza la solicitud a la API para obtener la lista de Eventos
             val response = retrofit.create(CanarySoundSphereClient::class.java).getListEvents()
-            // Devuelve la lista de Eventos si la respuesta no es nula, de lo contrario devuelve una lista vacía
             response.body() ?: emptyList()
         }
     }
 
     /**
-     * Método getDetailEvent se utiliza para obtener un Event concreto
+     * Método getDetailEvent
+     * Devuelve un Event concreto si lo encuentra
      */
     suspend fun getDetailsEvent(id: String): EventModelDetails?{
         return withContext(Dispatchers.IO) {
             // Realiza la solicitud a la API para obtener el evento en funcion de su id
             val response = retrofit.create(CanarySoundSphereClient::class.java).getDetailsEvent(id)
-            // Devuelve los detalles del evento si la respuesta no es nula
             response.body()
         }
     }
