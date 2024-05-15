@@ -1,6 +1,7 @@
 package com.project.canary_sound_sphere_app.components
 
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
@@ -29,9 +30,11 @@ fun TitleText(text: String, textDecoration: Boolean) {
         fontSize = 16.sp,
         fontWeight = FontWeight.Bold,
         textDecoration = if(textDecoration) TextDecoration.Underline else TextDecoration.None,
-        softWrap = false,
+        softWrap = true,
+        modifier = Modifier.fillMaxWidth()
     )
 }
+
 @Composable
 fun DetailsText(text: String){
     Text(
@@ -39,6 +42,8 @@ fun DetailsText(text: String){
         color = colorCardText,
         fontSize = 14.sp,
         fontWeight = FontWeight.Normal,
+        softWrap = true,
+        modifier = Modifier.fillMaxWidth()
     )
 }
 
@@ -85,13 +90,13 @@ fun CustomTextButton(
     text: String,
     textColor: Color,
     fontWeight: FontWeight = FontWeight.Bold,
-    fontSize: Float = 24f,
+    fontSize: Float = 20f,
     isSelected: Boolean,
     onClick: () -> Unit
     ) {
     Text(
         modifier = modifier
-            .padding(8.dp)
+            .padding(18.dp)
             .clickable { onClick() },
         text = text,
         color = textColor,
