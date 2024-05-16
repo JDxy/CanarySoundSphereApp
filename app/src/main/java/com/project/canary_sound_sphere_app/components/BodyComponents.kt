@@ -19,39 +19,40 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import com.project.canary_sound_sphere_app.ui.theme.menuColor
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextDecoration
-import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
-import com.project.canary_sound_sphere_app.ui.theme.prussianBlue
+import com.project.canary_sound_sphere_app.ui.theme.Montserrat
+import com.project.canary_sound_sphere_app.ui.theme.menuColor
 
 @Composable
-fun TitleText(text: String, textDecoration: Boolean, modifier: Modifier,  fontSize: TextUnit) {
+fun TitleText(text: String, textDecoration: Boolean, modifier: Modifier, color: Color) {
     Text(
         text = text,
-        color = prussianBlue,
-        fontSize = fontSize,
-        fontWeight = FontWeight.W900,
+        color = color,
+        fontSize = 18.sp,
         textDecoration = if(textDecoration) TextDecoration.Underline else TextDecoration.None,
         softWrap = true,
-        modifier = modifier
+        modifier = modifier,
+        fontFamily = Montserrat,
+        fontWeight = FontWeight.Normal
     )
 }
 @Composable
-fun DetailsText(text: String, fontSize: TextUnit){
+fun DetailsText(text: String){
     Text(text = text,
-        color = prussianBlue,
-        fontSize = fontSize,
-        fontWeight = FontWeight.Normal,
+        color = Color.Black,
+        fontSize = 16.sp,
         softWrap = true,
-        modifier = Modifier.fillMaxWidth()
+        modifier = Modifier.fillMaxWidth(),
+        fontFamily = Montserrat,
+        fontWeight = FontWeight.Normal
     )
 }
-
 /**
  * Composable que representa un botón de texto personalizado. *
  * @param modifier
@@ -67,8 +68,6 @@ fun CustomTextButton(
     modifier: Modifier = Modifier,
     text: String,
     textColor: Color,
-    fontWeight: FontWeight = FontWeight.Bold,
-    fontSize: Float = 22f,
     isSelected: Boolean,
     onClick: () -> Unit
     ) {
@@ -79,8 +78,11 @@ fun CustomTextButton(
         text = text,
         color = textColor,
         textDecoration = if (isSelected) TextDecoration.Underline else TextDecoration.None,
-        fontWeight = fontWeight,
-        fontSize = fontSize.sp
+        style = TextStyle(
+            fontFamily = Montserrat,
+            fontWeight = FontWeight.Normal,
+            fontSize = 20.sp
+        )
     )
 }
 @OptIn(ExperimentalMaterial3Api::class)
@@ -92,18 +94,25 @@ fun DetailTopBar(
 ) {
     TopAppBar(
         colors = TopAppBarDefaults.mediumTopAppBarColors(
-            containerColor = Color.Transparent
+            containerColor = menuColor
         ),
-        title = { Text(text = title, color = Color.White, fontWeight = FontWeight.ExtraBold) },
-
+        title = {
+            Text(
+                text = title,
+                color = Color.White,
+                style = TextStyle(
+                    fontFamily = Montserrat,
+                    fontWeight = FontWeight.Normal,
+                    fontSize = 20.sp
+                )
+            ) },
         navigationIcon = {
-
             if (showBackButton) {
                 IconButton(onClick = { navController.popBackStack() }) {
                     Icon(
                         imageVector = Icons.Default.ArrowBack,
                         contentDescription = "Back",
-                        tint = Color.Black
+                        tint = Color.White
                     )
                 }
             }

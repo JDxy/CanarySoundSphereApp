@@ -12,9 +12,9 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.project.canary_sound_sphere_app.components.DetailTopBar
@@ -32,7 +32,7 @@ fun EventDetailView(viewModel: EventViewModel, navController: NavController, id:
     }
     Scaffold(
         topBar = {
-            DetailTopBar("", navController, showBackButton = true)
+            DetailTopBar(viewModel.state.name, navController, showBackButton = true)
         }
     ) {
         ContentEventDetails(viewModel.state, viewModel)
@@ -48,8 +48,6 @@ fun ContentEventDetails(eventState: EventState, viewModel: EventViewModel) {
         verticalArrangement = Arrangement.Center
     ) {
         item {
-            TitleText(eventState.name,false, modifier = Modifier.padding(bottom = 10.dp),30.sp)
-
             ImageEventDetailViews(viewModel.state)
 
             EventDetails(eventState)
@@ -92,8 +90,8 @@ fun EventDetails(eventState: EventState) {
                 verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier.fillMaxWidth()
             ){
-                TitleText("Fecha: ",false, modifier = Modifier, 20.sp)
-                DetailsText(eventState.date, 16.sp )
+                TitleText("Fecha: ",false, modifier = Modifier, Color.Black)
+                DetailsText(eventState.date)
             }
 
             Spacer(modifier = Modifier.padding(bottom = 10.dp))
@@ -102,8 +100,8 @@ fun EventDetails(eventState: EventState) {
                 verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier.fillMaxWidth()
             ){
-                TitleText("Hora: ",false, modifier = Modifier, 20.sp)
-                DetailsText(eventState.time, 16.sp )
+                TitleText("Hora: ",false, modifier = Modifier, Color.Black)
+                DetailsText(eventState.time)
             }
 
             Spacer(modifier = Modifier.padding(bottom = 10.dp))
@@ -112,8 +110,8 @@ fun EventDetails(eventState: EventState) {
                 verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier.fillMaxWidth()
             ) {
-                TitleText("Aforo: ", false, modifier = Modifier,20.sp)
-                DetailsText(eventState.capacity.toString(), 16.sp)
+                TitleText("Aforo: ", false, modifier = Modifier, Color.Black)
+                DetailsText(eventState.capacity.toString())
             }
         }
     }
@@ -128,9 +126,9 @@ fun EventDetails(eventState: EventState) {
             modifier = Modifier
                 .padding(10.dp)
         ) {
-            TitleText("Descripción:",false, modifier = Modifier,20.sp)
+            TitleText("Descripción:",false, modifier = Modifier, Color.Black)
             Spacer(modifier = Modifier.padding(bottom = 20.dp))
-            DetailsText(eventState.description, 16.sp )
+            DetailsText(eventState.description)
         }
     }
 }

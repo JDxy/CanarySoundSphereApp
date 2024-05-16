@@ -16,8 +16,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.project.canary_sound_sphere_app.model.AuthorItem
 import com.project.canary_sound_sphere_app.ui.theme.utOrange
@@ -43,7 +43,6 @@ fun AuthorList(navController: NavController, authors: List<AuthorItem>) {
         }
     }
 }
-
 @Composable
 fun AuthorItem(
     id: String,
@@ -64,7 +63,6 @@ fun AuthorItem(
         AuthorDetails(name, image)
     }
 }
-
 @Composable
 fun AuthorDetails(name: String, image: String) {
     Column(
@@ -75,8 +73,9 @@ fun AuthorDetails(name: String, image: String) {
         verticalArrangement = Arrangement.Center
     ) {
         TitleText(name, false,
-            modifier = Modifier.align(alignment = Alignment.CenterHorizontally),
-            20.sp
+            Modifier
+                .align(alignment = Alignment.CenterHorizontally),
+            Color.Black
         )
         Spacer(modifier = Modifier.padding(bottom = 10.dp))
         ImageHomeComponent(image)

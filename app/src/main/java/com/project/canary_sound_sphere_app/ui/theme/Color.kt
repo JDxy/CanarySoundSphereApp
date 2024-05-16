@@ -12,7 +12,7 @@ val Pink40 = Color(0xFF7D5260)
 
 val whiteWithOpacity = Color(0xCBEEEEEE)
 val white = Color(0xFFEEEEEE)
-val menuColor = Color(0xFF151515)
+val menuColor = Color(0xBF000000)
 
 val skyBlue = Color(0xFF8ECAE6)
 val blueGreenWithOpacity = Color(0x65219EBC)

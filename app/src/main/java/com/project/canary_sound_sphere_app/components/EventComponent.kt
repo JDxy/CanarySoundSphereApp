@@ -16,8 +16,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.project.canary_sound_sphere_app.model.EventItem
 import com.project.canary_sound_sphere_app.ui.theme.skyBlue
@@ -43,7 +43,6 @@ fun EventList(navController: NavController, events: List<EventItem>) {
         }
     }
 }
-
 @Composable
 fun EventItem(
     id: String,
@@ -64,7 +63,6 @@ fun EventItem(
         EventDetails(name, logo)
     }
 }
-
 @Composable
 fun EventDetails(name: String, logo: String) {
     Column(
@@ -74,10 +72,11 @@ fun EventDetails(name: String, logo: String) {
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
-        TitleText(name, false,
+        TitleText(
+            name,
+            false,
             Modifier.align(alignment = Alignment.CenterHorizontally),
-            20.sp
-        )
+            Color.Black)
         Spacer(modifier = Modifier.padding(bottom = 10.dp))
         ImageHomeComponent(logo)
     }
