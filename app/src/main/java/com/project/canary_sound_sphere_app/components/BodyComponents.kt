@@ -2,7 +2,10 @@ package com.project.canary_sound_sphere_app.components
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -18,29 +21,31 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.project.canary_sound_sphere_app.ui.theme.menuColor
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.style.TextDecoration
+import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
-import com.project.canary_sound_sphere_app.ui.theme.colorCardText
+import coil.compose.AsyncImage
+import com.project.canary_sound_sphere_app.ui.theme.prussianBlue
 
 @Composable
-fun TitleText(text: String, textDecoration: Boolean) {
+fun TitleText(text: String, textDecoration: Boolean, modifier: Modifier,  fontSize: TextUnit) {
     Text(
         text = text,
-        color = colorCardText,
-        fontSize = 16.sp,
-        fontWeight = FontWeight.Bold,
+        color = prussianBlue,
+        fontSize = fontSize,
+        fontWeight = FontWeight.W900,
         textDecoration = if(textDecoration) TextDecoration.Underline else TextDecoration.None,
         softWrap = true,
-        modifier = Modifier.fillMaxWidth()
+        modifier = modifier
     )
 }
-
 @Composable
-fun DetailsText(text: String){
-    Text(
-        text = text,
-        color = colorCardText,
-        fontSize = 14.sp,
+fun DetailsText(text: String, fontSize: TextUnit){
+    Text(text = text,
+        color = prussianBlue,
+        fontSize = fontSize,
         fontWeight = FontWeight.Normal,
         softWrap = true,
         modifier = Modifier.fillMaxWidth()
@@ -63,7 +68,7 @@ fun CustomTextButton(
     text: String,
     textColor: Color,
     fontWeight: FontWeight = FontWeight.Bold,
-    fontSize: Float = 20f,
+    fontSize: Float = 22f,
     isSelected: Boolean,
     onClick: () -> Unit
     ) {
@@ -78,18 +83,16 @@ fun CustomTextButton(
         fontSize = fontSize.sp
     )
 }
-
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DetailTopBar(
     title: String,
     navController: NavController,
     showBackButton: Boolean = false
-
 ) {
     TopAppBar(
         colors = TopAppBarDefaults.mediumTopAppBarColors(
-            containerColor = menuColor
+            containerColor = Color.Transparent
         ),
         title = { Text(text = title, color = Color.White, fontWeight = FontWeight.ExtraBold) },
 
@@ -100,10 +103,22 @@ fun DetailTopBar(
                     Icon(
                         imageVector = Icons.Default.ArrowBack,
                         contentDescription = "Back",
-                        tint = Color.White
+                        tint = Color.Black
                     )
                 }
             }
         }
+    )
+}
+@Composable
+fun ImageHomeComponent(image: String) {
+    AsyncImage(
+        modifier = Modifier
+            .width(360.dp)
+            .height(260.dp)
+            .clip(RoundedCornerShape(20.dp)),
+        model = image,
+        contentScale = ContentScale.Crop,
+        contentDescription = null
     )
 }

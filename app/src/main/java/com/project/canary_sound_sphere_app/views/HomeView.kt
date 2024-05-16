@@ -18,7 +18,7 @@ import androidx.navigation.NavController
 import com.project.canary_sound_sphere_app.components.AuthorList
 import com.project.canary_sound_sphere_app.components.CustomTextButton
 import com.project.canary_sound_sphere_app.components.EventList
-import com.project.canary_sound_sphere_app.ui.theme.backgroundColor
+import com.project.canary_sound_sphere_app.ui.theme.white
 import com.project.canary_sound_sphere_app.ui.theme.menuColor
 import com.project.canary_sound_sphere_app.viewModel.AuthorViewModel
 import com.project.canary_sound_sphere_app.viewModel.EventViewModel
@@ -48,7 +48,7 @@ fun HomeView(eventViewModel: EventViewModel, authorViewModel: AuthorViewModel, n
                 }
             )
         },
-        modifier = Modifier.background(backgroundColor)
+        modifier = Modifier.background(white)
     ) {
         Column {
             if (isEventsSelected) {
@@ -61,7 +61,7 @@ fun HomeView(eventViewModel: EventViewModel, authorViewModel: AuthorViewModel, n
 }
 
 /**
- * Composable que representa la barra superior principal de la aplicación. *
+ * Composable que representa la barra superior principal de la aplicación. 
  * @param title El título que se mostrará en la barra superior.
  * @param isEventsSelected
  * @param isAuthorsSelected
@@ -87,15 +87,15 @@ fun MainTopBar(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 CustomTextButton(
-                    modifier = Modifier.padding(start = 20.dp),
-                    text = "EVENTOS",
+                    modifier = Modifier.padding(start = 10.dp),
+                    text = "Eventos",
                     isSelected = isEventsSelected,
                     textColor = Color.White,
                     onClick = onEventsClicked
                 )
                 CustomTextButton(
-                    modifier = Modifier.padding(end = 20.dp),
-                    text = "AUTORES",
+                    modifier = Modifier.padding(end = 10.dp),
+                    text = "Autores",
                     isSelected = isAuthorsSelected,
                     textColor = Color.White,
                     onClick = onAuthorsClicked

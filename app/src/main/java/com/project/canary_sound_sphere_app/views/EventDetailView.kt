@@ -1,16 +1,27 @@
 package com.project.canary_sound_sphere_app.views
 
 import android.annotation.SuppressLint
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import coil.compose.AsyncImage
 import com.project.canary_sound_sphere_app.components.DetailTopBar
+import com.project.canary_sound_sphere_app.components.DetailsText
+import com.project.canary_sound_sphere_app.components.TitleText
 import com.project.canary_sound_sphere_app.state.EventState
+import com.project.canary_sound_sphere_app.ui.theme.whiteWithOpacity
 import com.project.canary_sound_sphere_app.viewModel.EventViewModel
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
@@ -21,27 +32,105 @@ fun EventDetailView(viewModel: EventViewModel, navController: NavController, id:
     }
     Scaffold(
         topBar = {
-            DetailTopBar(viewModel.state.name, navController, showBackButton = true)
+            DetailTopBar("", navController, showBackButton = true)
         }
     ) {
-        ContentEventsDetails(viewModel.state)
+        ContentEventDetails(viewModel.state, viewModel)
     }
 }
 
 @Composable
-fun ContentEventsDetails(eventState: EventState) {
-    Column(modifier = Modifier
-        .fillMaxWidth()
-        .padding(top = 80.dp)
+fun ContentEventDetails(eventState: EventState, viewModel: EventViewModel) {
+    LazyColumn(modifier = Modifier
+        .padding(10.dp,70.dp,10.dp,10.dp)
+        .fillMaxWidth(),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
     ) {
-        Text(text = "Name: ${eventState.name}")
+        item {
+            TitleText(eventState.name,false, modifier = Modifier.padding(bottom = 10.dp),30.sp)
 
-        Text(text = "Description: ${eventState.description}")
+            ImageEventDetailViews(viewModel.state)
 
-        Text(text = "Direction: ${eventState.direction}")
+            EventDetails(eventState)
 
-        Text(text = "Marker: ${eventState.marker}")
+            Text(text = "Direction: ${eventState.direction}")
 
-        Text(text = "Ticket Store: ${eventState.ticketStore}")
+            Text(text = "Marker: ${eventState.marker}")
+
+            Text(text = "Ticket Store: ${eventState.ticketStore}")
+        }
+    }
+}
+
+@Composable
+fun ImageEventDetailViews(eventState: EventState) {
+    AsyncImage(
+        modifier = Modifier
+            .padding(10.dp)
+            .fillMaxWidth()
+            .height(230.dp)
+            .clip(RoundedCornerShape(20.dp)),
+        model = eventState.image,
+        contentScale = ContentScale.Crop,
+        contentDescription = null
+    )
+}
+@Composable
+fun EventDetails(eventState: EventState) {
+    Box(
+        modifier = Modifier
+            .padding(10.dp, 10.dp)
+            .clip(RoundedCornerShape(20.dp))
+            .background(whiteWithOpacity)
+    ) {
+        Column(
+            modifier = Modifier
+                .padding(10.dp)
+        ) {
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier.fillMaxWidth()
+            ){
+                TitleText("Fecha: ",false, modifier = Modifier, 20.sp)
+                DetailsText(eventState.date, 16.sp )
+            }
+
+            Spacer(modifier = Modifier.padding(bottom = 10.dp))
+
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier.fillMaxWidth()
+            ){
+                TitleText("Hora: ",false, modifier = Modifier, 20.sp)
+                DetailsText(eventState.time, 16.sp )
+            }
+
+            Spacer(modifier = Modifier.padding(bottom = 10.dp))
+
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                TitleText("Aforo: ", false, modifier = Modifier,20.sp)
+                DetailsText(eventState.capacity.toString(), 16.sp)
+            }
+        }
+    }
+
+    Box(
+        modifier = Modifier
+            .padding(10.dp, 10.dp)
+            .clip(RoundedCornerShape(20.dp))
+            .background(whiteWithOpacity)
+    ) {
+        Column(
+            modifier = Modifier
+                .padding(10.dp)
+        ) {
+            TitleText("Descripción:",false, modifier = Modifier,20.sp)
+            Spacer(modifier = Modifier.padding(bottom = 20.dp))
+            DetailsText(eventState.description, 16.sp )
+        }
     }
 }

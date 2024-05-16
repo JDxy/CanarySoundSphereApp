@@ -6,14 +6,11 @@ data class EventItem(
     val id: String,
     val logo: String,
     val name: String,
-    val date: String,
-    val time: String,
-    val capacity: Int
 )
 
 fun EventModel.toDomain(): EventItem {
     val name = replaceFirstChar(name)
-    return EventItem(id, logo, name, date, time, capacity)
+    return EventItem(id, logo, name)
 }
 
 private fun replaceFirstChar(t: String): String {

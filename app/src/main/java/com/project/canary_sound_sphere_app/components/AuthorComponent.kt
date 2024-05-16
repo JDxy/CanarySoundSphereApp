@@ -1,12 +1,10 @@
 package com.project.canary_sound_sphere_app.components
 
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -18,20 +16,20 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import coil.compose.AsyncImage
 import com.project.canary_sound_sphere_app.model.AuthorItem
-import com.project.canary_sound_sphere_app.ui.theme.colorCardText
-import com.project.canary_sound_sphere_app.ui.theme.itemsAuthorBackgroundColor
+import com.project.canary_sound_sphere_app.ui.theme.utOrange
 
 @Composable
 fun AuthorList(navController: NavController, authors: List<AuthorItem>) {
     LazyColumn(
         modifier = Modifier
-            .padding(top = 80.dp)
+            .padding(top = 74.dp)
             .fillMaxWidth(),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.spacedBy(14.dp)
         ) {
         items(authors) { author ->
             AuthorItem(
@@ -53,54 +51,34 @@ fun AuthorItem(
     image: String,
     onClick: (String) -> Unit
 ) {
-    Row(
+    Column(
         modifier = Modifier
-            .padding(10.dp)
-            .width(400.dp)
-            .height(180.dp)
-            .clip(RoundedCornerShape(8.dp))
-            .background(itemsAuthorBackgroundColor)
-            .border(
-                BorderStroke(1.dp, colorCardText),
-                shape = RoundedCornerShape(8.dp)
-            )
+            .width(360.dp)
+            .height(280.dp)
+            .clip(RoundedCornerShape(20.dp))
+            .background(utOrange)
             .clickable { onClick(id) },
-        horizontalArrangement = Arrangement.SpaceBetween,
-        verticalAlignment = Alignment.CenterVertically
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
     ) {
-        AuthorLogo(image = image)
-        AuthorDetails(name = name)
+        AuthorDetails(name, image)
     }
 }
 
 @Composable
-fun AuthorLogo(image: String) {
-    AsyncImage(
-        modifier = Modifier
-            .width(250.dp)
-            .height(170.dp)
-            .padding(start = 14.dp, top = 10.dp, end = 10.dp, bottom = 10.dp)
-            .clip(RoundedCornerShape(8.dp))
-            .border(
-                BorderStroke(1.dp, colorCardText),
-                shape = RoundedCornerShape(8.dp)
-            ),
-        model = image,
-        contentScale = ContentScale.Crop,
-        contentDescription = null
-    )
-}
-
-@Composable
-fun AuthorDetails(name: String) {
+fun AuthorDetails(name: String, image: String) {
     Column(
         modifier = Modifier
-            .width(150.dp)
-            .height(170.dp)
-            .padding(start = 10.dp, top = 6.dp, end = 14.dp, bottom = 10.dp),
+            .fillMaxWidth()
+            .padding(25.dp, 10.dp, 25.dp, 25.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
-        TitleText(name, false)
+        TitleText(name, false,
+            modifier = Modifier.align(alignment = Alignment.CenterHorizontally),
+            20.sp
+        )
+        Spacer(modifier = Modifier.padding(bottom = 10.dp))
+        ImageHomeComponent(image)
     }
 }

@@ -13,5 +13,8 @@ data class EventModelDetails(
     @SerializedName("description") val description: String,
     @SerializedName("direction") val direction: String,
     @SerializedName("marker") val marker: String,
-    @SerializedName("ticket_store") val ticketStore: String
+    @SerializedName("ticket_store") val ticketStore: String,
+    @SerializedName("date") val date: String,
+    @SerializedName("time") val time: String,
+    @SerializedName("capacity") val capacity: Int
 )

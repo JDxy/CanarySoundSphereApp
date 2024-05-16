@@ -71,7 +71,10 @@ class EventViewModel @Inject constructor(private val repo: EventApiRepository): 
                     description = result?.description ?: "",
                     direction = result?.direction ?: "",
                     marker = result?.marker ?: "",
-                    ticketStore = result?.ticketStore ?: ""
+                    ticketStore = result?.ticketStore ?: "",
+                    date = result?.date ?: "",
+                    time = result?.time ?: "",
+                    capacity = result?.capacity ?: 0
                 )
             }
         }

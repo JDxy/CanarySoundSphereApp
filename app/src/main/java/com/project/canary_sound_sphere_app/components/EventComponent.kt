@@ -1,12 +1,9 @@
 package com.project.canary_sound_sphere_app.components
 
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -19,31 +16,26 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import coil.compose.AsyncImage
 import com.project.canary_sound_sphere_app.model.EventItem
-import com.project.canary_sound_sphere_app.ui.theme.colorCardText
-import com.project.canary_sound_sphere_app.ui.theme.itemsEventBackgroundColor
+import com.project.canary_sound_sphere_app.ui.theme.skyBlue
 
 @Composable
 fun EventList(navController: NavController, events: List<EventItem>) {
     LazyColumn(
         modifier = Modifier
-            .padding(top = 80.dp)
+            .padding(top = 74.dp)
             .fillMaxWidth(),
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
+        verticalArrangement = Arrangement.spacedBy(14.dp)
     ) {
         items(events) { event ->
             EventItem(
                 id = event.id,
-                logo = event.logo,
                 name = event.name,
-                date = event.date,
-                time = event.time,
-                capacity = event.capacity,
+                logo = event.logo,
                 onClick = { eventId ->
                     navController.navigate("EventDetailScreen/$eventId")
                 }
@@ -57,66 +49,36 @@ fun EventItem(
     id: String,
     logo: String,
     name: String,
-    date: String,
-    time: String,
-    capacity: Int,
     onClick: (String) -> Unit
 ) {
-    Row(
+    Column(
         modifier = Modifier
-            .padding(10.dp)
-            .width(400.dp)
-            .height(180.dp)
-            .clip(RoundedCornerShape(8.dp))
-            .background(itemsEventBackgroundColor)
-            .border(
-                BorderStroke(1.dp, colorCardText),
-                shape = RoundedCornerShape(8.dp)
-            )
+            .width(360.dp)
+            .height(260.dp)
+            .clip(RoundedCornerShape(20.dp))
+            .background(skyBlue)
             .clickable { onClick(id) },
-        horizontalArrangement = Arrangement.SpaceBetween,
-        verticalAlignment = Alignment.CenterVertically
+       horizontalAlignment = Alignment.CenterHorizontally,
+       verticalArrangement = Arrangement.Center
     ) {
-        EventLogo(logo)
-        EventDetails(name, date, time, capacity)
+        EventDetails(name, logo)
     }
 }
 
-
 @Composable
-fun EventLogo(logo: String) {
-    AsyncImage(
-        modifier = Modifier
-            .width(200.dp)
-            .height(170.dp)
-            .padding(start = 14.dp, top = 10.dp, end = 10.dp, bottom = 10.dp)
-            .clip(RoundedCornerShape(8.dp))
-            .border(
-                BorderStroke(1.dp, colorCardText),
-                shape = RoundedCornerShape(8.dp)
-            ),
-        model = logo,
-        contentScale = ContentScale.Crop,
-        contentDescription = null
-    )
-}
-
-@Composable
-fun EventDetails(name: String, date: String, time: String, capacity: Int) {
+fun EventDetails(name: String, logo: String) {
     Column(
         modifier = Modifier
-            .width(200.dp)
-            .height(170.dp)
-            .padding(start = 0.dp, top = 6.dp, end = 14.dp, bottom = 10.dp),
+            .fillMaxWidth()
+            .padding(25.dp, 10.dp, 25.dp, 25.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
-        TitleText(name, true)
+        TitleText(name, false,
+            Modifier.align(alignment = Alignment.CenterHorizontally),
+            20.sp
+        )
         Spacer(modifier = Modifier.padding(bottom = 10.dp))
-        DetailsText("Fecha: $date")
-        Spacer(modifier = Modifier.padding(bottom = 5.dp))
-        DetailsText("Horario: $time")
-        Spacer(modifier = Modifier.padding(bottom = 5.dp))
-        DetailsText("Aforo: $capacity")
+        ImageHomeComponent(logo)
     }
 }

@@ -7,7 +7,10 @@ data class EventItemDetails(
     val description: String,
     val direction: String,
     val marker: String,
-    val ticketStore: String
+    val ticketStore: String,
+    val date: String,
+    val time: String,
+    val capacity: Int
 )
 
 /**
@@ -15,5 +18,5 @@ data class EventItemDetails(
  * Retorna un nuevo objeto EventItemDetails con los datos formateados
  */
 fun EventModelDetails.toDomain(): EventItemDetails {
-    return EventItemDetails(id, name,  image, description, direction, marker, ticketStore)
+    return EventItemDetails(id, name,  image, description, direction, marker, ticketStore,date, time, capacity)
 }
