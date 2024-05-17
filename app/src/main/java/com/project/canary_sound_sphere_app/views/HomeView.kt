@@ -38,6 +38,7 @@ fun HomeView(
     var isMenuVisible by remember { mutableStateOf(false) }
 
     Scaffold(
+        modifier = Modifier.background(Color.White),
         topBar = {
             MainTopBar(
                 isEventsSelected = isEventsSelected,
@@ -57,10 +58,16 @@ fun HomeView(
             )
         }
     ) {
-        if (isEventsSelected) {
-            EventList(navController, events)
-        } else if (isAuthorsSelected) {
-            AuthorList(navController, authors)
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(Color.White)
+        ) {
+            if (isEventsSelected) {
+                EventList(navController, events)
+            } else if (isAuthorsSelected) {
+                AuthorList(navController, authors)
+            }
         }
     }
 }

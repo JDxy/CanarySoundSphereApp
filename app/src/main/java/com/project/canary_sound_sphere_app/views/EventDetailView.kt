@@ -1,6 +1,7 @@
 package com.project.canary_sound_sphere_app.views
 
 import android.annotation.SuppressLint
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -32,7 +33,13 @@ fun EventDetailView(viewModel: EventViewModel, navController: NavController, id:
             DetailTopBar(viewModel.state.name, navController, showBackButton = true)
         }
     ) {
-        ContentEventDetails(viewModel.state, viewModel)
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(Color.White)
+        ) {
+            ContentEventDetails(viewModel.state, viewModel)
+        }
     }
 }
 
