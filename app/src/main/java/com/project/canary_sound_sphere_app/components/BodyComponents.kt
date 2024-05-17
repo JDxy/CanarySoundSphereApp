@@ -1,10 +1,9 @@
 package com.project.canary_sound_sphere_app.components
 
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
@@ -27,19 +26,34 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.project.canary_sound_sphere_app.ui.theme.Montserrat
-import com.project.canary_sound_sphere_app.ui.theme.menuColor
+import com.project.canary_sound_sphere_app.ui.theme.blackWithOpacity
 
 @Composable
-fun TitleText(text: String, textDecoration: Boolean, modifier: Modifier, color: Color) {
+fun TitleText(modifier: Modifier, style :TextStyle, text: String, textDecoration: Boolean, color: Color) {
     Text(
+        modifier = modifier,
+        style = style,
         text = text,
         color = color,
         fontSize = 18.sp,
         textDecoration = if(textDecoration) TextDecoration.Underline else TextDecoration.None,
         softWrap = true,
-        modifier = modifier,
         fontFamily = Montserrat,
         fontWeight = FontWeight.Normal
+    )
+}
+
+@Composable
+fun DetailsTitleText(text: String, textDecoration: Boolean, modifier: Modifier, color: Color) {
+    Text(
+        text = text,
+        color = color,
+        fontSize = 16.sp,
+        textDecoration = if(textDecoration) TextDecoration.Underline else TextDecoration.None,
+        softWrap = true,
+        modifier = modifier,
+        fontFamily = Montserrat,
+        fontWeight = FontWeight.Bold
     )
 }
 @Composable
@@ -58,8 +72,6 @@ fun DetailsText(text: String){
  * @param modifier
  * @param text
  * @param textColor
- * @param fontWeight
- * @param fontSize
  * @param isSelected
  * @param onClick
  */
@@ -70,14 +82,13 @@ fun CustomTextButton(
     textColor: Color,
     isSelected: Boolean,
     onClick: () -> Unit
-    ) {
+) {
     Text(
         modifier = modifier
-            .padding(18.dp)
+            .padding(top = 55.dp)
             .clickable { onClick() },
         text = text,
         color = textColor,
-        textDecoration = if (isSelected) TextDecoration.Underline else TextDecoration.None,
         style = TextStyle(
             fontFamily = Montserrat,
             fontWeight = FontWeight.Normal,
@@ -94,18 +105,20 @@ fun DetailTopBar(
 ) {
     TopAppBar(
         colors = TopAppBarDefaults.mediumTopAppBarColors(
-            containerColor = menuColor
+            containerColor = blackWithOpacity
         ),
         title = {
-            Text(
-                text = title,
-                color = Color.White,
+            TitleText(
+                modifier = Modifier,
                 style = TextStyle(
                     fontFamily = Montserrat,
                     fontWeight = FontWeight.Normal,
                     fontSize = 20.sp
-                )
-            ) },
+                ),
+                text = title ,
+                textDecoration = false,
+                color = Color.White )
+        },
         navigationIcon = {
             if (showBackButton) {
                 IconButton(onClick = { navController.popBackStack() }) {
@@ -123,9 +136,8 @@ fun DetailTopBar(
 fun ImageHomeComponent(image: String) {
     AsyncImage(
         modifier = Modifier
-            .width(360.dp)
-            .height(260.dp)
-            .clip(RoundedCornerShape(20.dp)),
+            .fillMaxSize()
+            .clip(RoundedCornerShape(10.dp)),
         model = image,
         contentScale = ContentScale.Crop,
         contentDescription = null

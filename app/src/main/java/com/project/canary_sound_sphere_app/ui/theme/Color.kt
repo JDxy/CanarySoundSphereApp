@@ -11,11 +11,9 @@ val PurpleGrey40 = Color(0xFF625b71)
 val Pink40 = Color(0xFF7D5260)
 
 val whiteWithOpacity = Color(0xCBEEEEEE)
-val white = Color(0xFFEEEEEE)
-val menuColor = Color(0xBF000000)
+val blackWithOpacity = Color(0xCC000000)
 
 val skyBlue = Color(0xFF8ECAE6)
-val blueGreenWithOpacity = Color(0x65219EBC)
 val blueGreen = Color(0xFF219EBC)
 val prussianBlue = Color(0xFF023047)
 val utOrange = Color(0xFFFFB703)

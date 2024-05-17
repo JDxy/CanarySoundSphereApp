@@ -5,9 +5,7 @@ import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Menu
@@ -21,7 +19,8 @@ import androidx.navigation.NavController
 import com.project.canary_sound_sphere_app.components.AuthorList
 import com.project.canary_sound_sphere_app.components.CustomTextButton
 import com.project.canary_sound_sphere_app.components.EventList
-import com.project.canary_sound_sphere_app.ui.theme.menuColor
+import com.project.canary_sound_sphere_app.ui.theme.blackWithOpacity
+import com.project.canary_sound_sphere_app.ui.theme.selectiveYellow
 import com.project.canary_sound_sphere_app.viewModel.AuthorViewModel
 import com.project.canary_sound_sphere_app.viewModel.EventViewModel
 
@@ -41,7 +40,6 @@ fun HomeView(
     Scaffold(
         topBar = {
             MainTopBar(
-                title = "",
                 isEventsSelected = isEventsSelected,
                 isAuthorsSelected = isAuthorsSelected,
                 isMenuVisible = isMenuVisible,
@@ -59,12 +57,10 @@ fun HomeView(
             )
         }
     ) {
-        Column {
-            if (isEventsSelected) {
-                EventList(navController, events)
-            } else if (isAuthorsSelected) {
-                AuthorList(navController, authors)
-            }
+        if (isEventsSelected) {
+            EventList(navController, events)
+        } else if (isAuthorsSelected) {
+            AuthorList(navController, authors)
         }
     }
 }
@@ -72,7 +68,6 @@ fun HomeView(
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalAnimationApi::class)
 @Composable
 fun MainTopBar(
-    title: String,
     isEventsSelected: Boolean,
     isAuthorsSelected: Boolean,
     isMenuVisible: Boolean,
@@ -89,7 +84,7 @@ fun MainTopBar(
                 }
             },
             colors = TopAppBarDefaults.mediumTopAppBarColors(
-                containerColor = menuColor
+                containerColor = blackWithOpacity
             )
         )
         Divider(color = Color.Gray, thickness = 1.dp)
@@ -100,22 +95,23 @@ fun MainTopBar(
         ) {
             Column(
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .fillMaxHeight()
-                    .background(menuColor),
+                    .fillMaxSize()
+                    .background(blackWithOpacity),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 CustomTextButton(
-                    text = "Eventos",
+                    text = "EVENTOS",
                     isSelected = isEventsSelected,
-                    textColor = Color.White,
+                    textColor = if(isEventsSelected) selectiveYellow else
+                        Color.White,
                     onClick = onEventsClicked
                 )
-                Spacer(modifier = Modifier.width(16.dp))
+
                 CustomTextButton(
-                    text = "Autores",
+                    text = "AUTORES",
                     isSelected = isAuthorsSelected,
-                    textColor = Color.White,
+                    textColor = if(isAuthorsSelected) selectiveYellow else
+                        Color.White,
                     onClick = onAuthorsClicked
                 )
             }
