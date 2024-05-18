@@ -32,7 +32,6 @@ class EventViewModel @Inject constructor(private val repo: EventApiRepository): 
     // Estado actual de la pantalla
     var state by mutableStateOf(EventState())
         private set
-
     /**
      * Inicializa el ViewModel y obtiene la lista de eventos al inicializarlo.
      */
@@ -54,7 +53,6 @@ class EventViewModel @Inject constructor(private val repo: EventApiRepository): 
             }
         }
     }
-
     /**
      * Función para obtener los detalles de un evento por su ID y actualizar el estado de la pantalla.
      * @param id ID del evento del cual se quieren obtener los detalles.

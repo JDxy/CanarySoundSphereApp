@@ -32,14 +32,12 @@ class AuthorViewModel @Inject constructor(private val repo: AuthorApiRepository)
     // Estado actual de la pantalla
     var state by mutableStateOf(AuthorState())
         private set
-
     /**
      * Inicializa el ViewModel y obtiene la lista de autores al inicializarlo.
      */
     init {
         fetchAuthors()
     }
-
     /**
      * Inicializa el ViewModel y obtiene la lista de autores al inicializarlo.
      */
@@ -54,7 +52,6 @@ class AuthorViewModel @Inject constructor(private val repo: AuthorApiRepository)
             }
         }
     }
-
     /**
      * Función para obtener los detalles de un autor por su ID y actualizar el estado de la pantalla.     *
      * @param id ID del autor del cual se quieren obtener los detalles.
