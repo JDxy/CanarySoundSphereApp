@@ -52,11 +52,17 @@ android {
 }
 
 dependencies {
+    // Google maps
+    implementation ("com.google.maps.android:maps-compose:5.0.1")
+    implementation ("com.google.maps.android:maps-compose-utils:5.0.1")
+    implementation ("com.google.maps.android:maps-compose-widgets:5.0.1")
+
     implementation("androidx.datastore:datastore-preferences:1.0.0")
 
     implementation("androidx.compose.runtime:runtime:1.3.3")
     implementation("androidx.compose.runtime:runtime-livedata:1.3.3")
     implementation("androidx.compose.runtime:runtime-rxjava2:1.3.3")
+    implementation("com.google.android.gms:play-services-maps:18.2.0")
     val nav_version = "2.6.0"
     implementation("androidx.navigation:navigation-compose:$nav_version")
     //hilt
