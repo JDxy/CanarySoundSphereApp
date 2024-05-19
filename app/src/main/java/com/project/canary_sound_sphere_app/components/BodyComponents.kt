@@ -42,7 +42,6 @@ fun TitleText(modifier: Modifier, style :TextStyle, text: String, textDecoration
         fontWeight = FontWeight.Normal
     )
 }
-
 @Composable
 fun DetailsTitleText(text: String, textDecoration: Boolean, modifier: Modifier, color: Color) {
     Text(

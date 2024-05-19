@@ -38,7 +38,6 @@ class EventViewModel @Inject constructor(private val repo: EventApiRepository): 
     init{
         fetchEvent()
     }
-
     /**
      * Función para obtener la lista de eventos desde el repositorio y actualizar el flujo de eventos.
      */

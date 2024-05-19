@@ -13,6 +13,7 @@ val Pink40 = Color(0xFF7D5260)
 val whiteWithOpacity = Color(0xCBEEEEEE)
 val blackWithOpacity = Color(0xCC000000)
 val blackWithSoftOpacity = Color(0x99000000)
+val redWithOpacity = Color(0xCCFF0000)
 
 val skyBlue = Color(0xFF8ECAE6)
 val blueGreen = Color(0xFF219EBC)

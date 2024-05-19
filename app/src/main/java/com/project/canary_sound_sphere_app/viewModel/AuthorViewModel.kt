@@ -22,13 +22,10 @@ import javax.inject.Inject
  */
 @HiltViewModel
 class AuthorViewModel @Inject constructor(private val repo: AuthorApiRepository): ViewModel() {
-
     // Flujo mutable para almacenar la lista de autores
     private val _authors = MutableStateFlow<List<AuthorItem>>(emptyList())
-
     // Flujo inmutable para exponer la lista de autores al UI
     val authors = _authors.asStateFlow()
-
     // Estado actual de la pantalla
     var state by mutableStateOf(AuthorState())
         private set
